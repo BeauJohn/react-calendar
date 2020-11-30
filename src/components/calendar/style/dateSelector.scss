@@ -1,0 +1,44 @@
+$darkGrey: #8b9898;
+$lightGrey: rgba(242, 241, 238, 0.6);
+$red: rgb(235, 87, 87);
+$blue: rgb(45, 170, 219);
+$lightBlue: rgba(46, 170, 220, 0.5);
+$softBlue: rgba(46, 170, 220, 0.15);
+$text: rgb(55, 53, 47);
+
+.dateSelector {
+   max-width: 500px;
+   color: $text;
+
+   .calendar {
+      &__row {
+         display: flex;
+         justify-content: space-between;
+      }
+
+      &__day {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         width: 32px;
+         height: 34px;
+         font-size: 15px;
+         color: $darkGrey;
+      }
+
+      &__currentMonth {
+         color: $text;
+      }
+
+      &__today {
+         color: $red;
+      }
+   }
+
+   .calendar__weekdays {
+      .calendar__weekday {
+         color: $darkGrey;
+         font-size: 14px;
+      }
+   }
+}
