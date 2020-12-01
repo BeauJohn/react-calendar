@@ -5,9 +5,6 @@ function CalendarBody({ currentDate, month, pickDate }) {
    const [today] = useState(currentDate.getDate())
    const [currentMonth] = useState(new Date().getMonth())
 
-   const monthDays = (date) => {
-      return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
-   }
 
    const inRange = (target, min, max) => {
       return target >= min && target <= max
