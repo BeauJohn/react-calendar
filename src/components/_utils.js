@@ -49,7 +49,7 @@ export function addYears(date, n) {
 
 export function isSameDay(dateLeft, dateRight) {
    if (!validDate(dateLeft) || !validDate(dateRight)) {
-      return new Date(NaN)
+      return false
    }
    const timeLeft = new Date(dateLeft)
    const timeRight = new Date(dateRight)
@@ -60,7 +60,7 @@ export function isSameDay(dateLeft, dateRight) {
 
 export function isThisMonth(date) {
    if (!validDate(date)) {
-      return new Date(NaN)
+      return false
    }
    const currentdate = new Date()
    return isSameMonth(currentdate, date)
@@ -78,7 +78,7 @@ export function format(date, format, locales) {
 
 export function isToday(date) {
    if (!validDate(date)) {
-      return new Date(NaN)
+      return false
    }
    const today = new Date()
    const day = new Date(date)
@@ -86,8 +86,9 @@ export function isToday(date) {
 }
 
 export function validDate(date) {
-   if (Object.prototype.toString.call(date) === '[object Date]') {
-      if (isNaN(date.getTime())) {
+   const valid = new Date(date)
+   if (Object.prototype.toString.call(valid) === '[object Date]') {
+      if (isNaN(valid.getTime())) {
          return false
       } else {
          return true
@@ -99,13 +100,34 @@ export function validDate(date) {
 
 export function isSameMonth(dateLeft, dateRight) {
    if (!validDate(dateLeft) && !validDate(dateRight)) {
-      return new Date(NaN)
+      return false
    }
    const yearLeft = dateLeft.getFullYear()
    const yearRight = dateRight.getFullYear()
    const monthLeft = dateLeft.getMonth()
    const monthRight = dateRight.getMonth()
    return yearLeft === yearRight && monthLeft === monthRight
+}
+
+export function isBeforeDate(pickedDate, currentDate) {
+   if (!validDate(pickedDate) && !validDate(currentDate)) {
+      return false
+   }
+   return pickedDate < currentDate
+}
+
+export function isAfterDate(pickedDate, currentDate) {
+   if (!validDate(pickedDate) && !validDate(currentDate)) {
+      return false
+   }
+   return pickedDate > currentDate
+}
+
+export function isWithinRange(date, startDate, endDate) {
+   if (!validDate(date) && !validDate(startDate) && !validDate(endDate)) {
+      return false
+   }
+   return startDate < date && date < endDate
 }
 
 export function getMonthCalendar(date) {
@@ -126,7 +148,7 @@ export function getMonthCalendar(date) {
    for (let i = 0; i < days; i++) {
       const object = {
          date: nDate,
-         activeMonth: isSameMonth(nDate, date),
+         isCurrentMonth: isSameMonth(nDate, date),
          today: false
       }
       arr.push(object)
@@ -139,4 +161,12 @@ export function getMonthCalendar(date) {
    }
 
    return arr
+}
+
+export const setClasses = (classes) => {
+   const arr = []
+   for (const [key, value] of Object.entries(classes)) {
+      if (value === true) arr.push(key)
+   }
+   return arr.join(' ').trim()
 }

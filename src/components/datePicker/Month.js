@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { getMonthCalendar } from './_utils'
+import React from 'react'
+import { getMonthCalendar } from '../_utils'
 import Day from './Day'
 
 function Month(props) {
    const { activeMonth } = props
-   const [calendar, setCalendar] = useState([])
-
-   useEffect(() => {
-      let nCalendar = getMonthCalendar(activeMonth)
-      setCalendar(nCalendar)
-   }, [activeMonth])
+   const calendar = getMonthCalendar(activeMonth)
 
    const divideInWeeks = (calendarArr) => {
       const nCalendar = [...calendarArr]

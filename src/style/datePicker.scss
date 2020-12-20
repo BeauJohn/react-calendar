@@ -1,0 +1,141 @@
+@import 'variables';
+
+.datePicker {
+   max-width: 500px;
+   color: $text;
+
+   &__monthControl {
+      padding: 0 5px 10px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .datePicker__month {
+         font-weight: 700;
+      }
+
+      .datePicker__buttons {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         & > button {
+            background: none;
+            border: none;
+            padding: 0;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            width: 10px;
+            height: 10px;
+
+            /* Use icon SVG for this sheitte */
+            &:before {
+               content: '';
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               width: 100%;
+               height: 100%;
+               border-top: 2px solid $darkGrey;
+            }
+         }
+      }
+
+      .datePicker__buttons > button:first-child:before {
+         border-left: 2px solid $darkGrey;
+         transform: translate(-50%, -50%) rotate(-45deg);
+      }
+
+      .datePicker__buttons > button:last-child:before {
+         border-right: 2px solid $darkGrey;
+         transform: translate(-50%, -50%) rotate(45deg);
+      }
+   }
+
+   &__row {
+      display: flex;
+      justify-content: space-between;
+   }
+
+   &__day {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      font-size: 15px;
+      color: $text;
+      cursor: pointer;
+
+      &--today {
+         color: #ffffff;
+         position: relative;
+         font-weight: 900;
+         z-index: 0;
+
+         &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 85%;
+            background: $red;
+            border-radius: 50%;
+            z-index: -5;
+         }
+      }
+
+      &--selected {
+         background: $blue;
+         color: white;
+      }
+
+      &--selected {
+         background: $blue;
+         color: #ffffff;
+         font-weight: 700;
+         border-radius: 3px;
+      }
+
+      &--today--range {
+         background: $softBlue;
+         color: #ffffff;
+      }
+
+      &--inner,
+      &--outer {
+         background: $lightBlue;
+         color: $text;
+      }
+
+      &--active {
+         border-radius: 3px;
+         color: #ffffff;
+         font-weight: 700;
+      }
+
+      &--activeRange {
+         color: #ffffff;
+         font-weight: 700;
+      }
+
+      &--inner {
+         border-radius: 3px 0 0 3px;
+      }
+
+      &--outer {
+         border-radius: 0 3px 3px 0;
+      }
+
+      &--range {
+         background: $softBlue;
+      }
+
+      &--otherMonth {
+         color: $darkGrey;
+      }
+   }
+}

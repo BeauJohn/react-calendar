@@ -1,0 +1,39 @@
+@import 'variables';
+
+.DateInputFields {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+
+   .dateInput {
+      padding: 0px 10px;
+      height: 28px;
+      margin: 8px 5px;
+      margin-bottom: 20px;
+      height: 28px;
+      font-size: 14px;
+      background: rgba(242, 241, 238, 0.6);
+      box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-radius: 3px;
+      width: 100%;
+
+      &--focus {
+         box-shadow: rgb(46, 170, 220) 0px 0px 0px 2px inset;
+         background: rgba(46, 170, 220, 0.15);
+      }
+
+      &--invalid {
+         box-shadow: rgb(235, 87, 87) 0px 0px 0px 2px inset;
+         background: rgba(235, 87, 87, 0.15);
+      }
+
+      input {
+         background: none;
+         outline: none;
+         border: none;
+      }
+   }
+}
