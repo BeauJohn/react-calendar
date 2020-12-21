@@ -7,14 +7,27 @@ import '../../style/datePicker.scss'
 function Datepicker(props) {
    const { startDate, rangeSelection } = props
    const [activeMonth, setActiveMonth] = useState(startDate)
-   const [innerActive, setInnerActive] = useState(false)
-   const [outerActive, setOuterActive] = useState(false)
+   const [activeBound, setActiveBound] = useState({
+      inner: false,
+      outer: false
+   })
 
    useEffect(() => {
       setActiveMonth(startDate)
-      if (rangeSelection) setInnerActive(true)
-      else setInnerActive(false)
+      if (rangeSelection)
+         setActiveBound((activeBound) => ({ ...activeBound, outer: true }))
+      else setActiveBound({ inner: false, outer: false })
    }, [startDate, rangeSelection])
+
+   const updateActiveBound = (value) => {
+      if (value === 'inner') setActiveBound({ inner: true, outer: false })
+      if (value === 'outer') setActiveBound({ inner: false, outer: true })
+      if (value === 'switch')
+         setActiveBound((currentState) => ({
+            inner: !currentState.inner,
+            outer: !currentState.outer
+         }))
+   }
 
    return (
       <div className="datePicker">
@@ -23,11 +36,13 @@ function Datepicker(props) {
             activeMonth={activeMonth}
          />
          <Weekdays />
-         {/* <Month
+         <Month
             activeMonth={activeMonth}
             setOuterMonth={(date) => setActiveMonth(date)}
+            activeBound={activeBound}
+            updateActiveBound={updateActiveBound}
             {...props}
-         /> */}
+         />
       </div>
    )
 }

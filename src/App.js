@@ -8,8 +8,6 @@ function App() {
    const [startDate, setStartDate] = useState(new Date())
    const [endDate, setEndDate] = useState(null)
    const [range, setRange] = useState(false)
-   /*    const [innerBound, setInnerBound] = useState(false)
-   const [outerBound, setOuterBound] = useState(false) */
 
    const handleChange = (dates) => {
       const [start, end] = dates

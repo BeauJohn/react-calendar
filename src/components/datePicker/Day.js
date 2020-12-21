@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-   isBeforeDate,
-   isAfterDate,
-   isWithinRange,
-   isSameDay,
-   isSameMonth,
-   setClasses
-} from '../_utils'
+import { isWithinRange, isSameDay, isSameMonth, setClasses } from '../_utils'
 
 function Day(props) {
    const { date } = props.day
@@ -47,14 +40,14 @@ function Day(props) {
       return today && inRange
    }
 
-   const range = (params) => {
+   const range = () => {
       const { day, startDate, endDate } = props
       const { date } = day
       const inRange = isWithinRange(date, startDate, endDate)
       return inRange
    }
 
-   const isOtherMonth = (params) => {
+   const isOtherMonth = () => {
       const { day } = props
       const { activeMonth } = day
       return !activeMonth
@@ -74,40 +67,50 @@ function Day(props) {
       return setClasses(classes)
    }
 
-   /* const getPickedDates = (date, rangeSelection) => {
-      if (rangeSelection) {
-         //check for same day, or inner or outer 
-         // switch if neccesary 
-         // depending on active state return new array
+   const isInactiveBound = (pickedDate) => {
+      const { startDate, endDate, activeBound } = props
+      const { inner, outer } = activeBound
+      const isStartDay = isSameDay(pickedDate, startDate)
+      const isEndDay = isSameDay(pickedDate, endDate)
+      if (inner && isEndDay) return true
+      if (outer && isStartDay) return true
+      return false
+   }
 
-      } else if (!rangeSelection) {
-         return date
-      }
-   } */
-
-   /* const handleClick = (pickedDate) => {
+   const handleClick = (pickedDate) => {
+      const {
+         activeMonth,
+         activeBound,
+         rangeSelection,
+         atChange,
+         setOuterMonth,
+         startDate,
+         endDate,
+         updateActiveBound
+      } = props
+      const { inner, outer } = activeBound
       const outOfBoundsMonth = !isSameMonth(pickedDate, activeMonth)
-      const dates = getPickedDates(pickedDate, rangeSelection)
-      /*if (outOfBoundsMonth) setOuterMonth(pickedDate)
-      atChange(dates)
-          let dates = []
-         const isBeforeStart = isBeforeDate(pickedDate, startDate)
-         const isAfterEnd = isAfterDate(pickedDate, endDate)
-         const isBetweenStartAndEnd = isWithinRange(
-            pickedDate,
-            startDate,
-            endDate
-         )
 
-         if (isBeforeStart) {
-            dates = [pickedDate, endDate]
-         } else if (isBetweenStartAndEnd) {
-            dates = [startDate, pickedDate]
-         } else if (isAfterEnd) {
-            dates = [startDate, pickedDate]
-         } 
+      if (rangeSelection) {
+         let dates = []
+         const switchActiveBound = isInactiveBound(pickedDate)
+
+         if (switchActiveBound) {
+            updateActiveBound('switch')
+         } else if (inner) {
+            if (pickedDate > endDate) dates = [endDate, pickedDate]
+            else dates = [pickedDate, endDate]
+         } else if (outer) {
+            if (pickedDate < startDate) dates = [pickedDate, startDate]
+            else dates = [startDate, pickedDate]
+         }
+         atChange(dates)
+      } else {
+         atChange(pickedDate)
       }
-   }  */
+
+      if (outOfBoundsMonth) setOuterMonth(pickedDate)
+   }
 
    return (
       <div className={getClasses()} onClick={() => handleClick(date)}>
