@@ -5,15 +5,12 @@ import Controls from './Controls'
 import '../../style/datePicker.scss'
 
 function Datepicker(props) {
-   const { startDate, endDate, rangeSelection } = props
+   const { startDate, rangeSelection } = props
    const [activeMonth, setActiveMonth] = useState(startDate)
    const [activeBound, setActiveBound] = useState({
       inner: false,
       outer: false
    })
-
-   console.log(startDate)
-   console.log(endDate)
 
    useEffect(() => {
       setActiveMonth(startDate)

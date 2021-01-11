@@ -5,11 +5,11 @@ function Day(props) {
    const { date } = props.day
 
    const isSelected = () => {
-      const { day, startDate, endDate } = props
+      const { day, startDate, endDate, rangeSelection } = props
       const { date } = day
       const selectedDay = isSameDay(date, startDate)
       const sameAsStart = isSameDay(startDate, endDate)
-      return selectedDay && sameAsStart
+      return (selectedDay && sameAsStart) || (selectedDay && !rangeSelection)
    }
 
    const isInnerBound = () => {

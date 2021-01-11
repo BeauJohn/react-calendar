@@ -1,18 +1,26 @@
 import './style/App.scss'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from './components/datePicker/DatePicker'
 import DateInput from './components/dateInput/DateInput'
 import Switcher from './components/Switcher'
 
 function App() {
    const [startDate, setStartDate] = useState(new Date())
-   const [endDate, setEndDate] = useState(new Date())
+   const [endDate, setEndDate] = useState()
    const [range, setRange] = useState(false)
+
+   console.log(startDate)
+   console.log(endDate)
 
    const handleChange = (dates) => {
       const [start, end] = dates
       setStartDate(start)
       setEndDate(end)
+   }
+
+   const toggleRange = () => {
+      setEndDate(startDate)
+      setRange((range) => !range)
    }
 
    return (
@@ -45,9 +53,7 @@ function App() {
                   atChange={(date) => setStartDate(date)}
                />
             )}
-            <Switcher toggle={() => setRange((range) => !range)}>
-               {'Include end date '}
-            </Switcher>
+            <Switcher toggle={toggleRange}>{'Include end date'}</Switcher>
          </div>
       </div>
    )
