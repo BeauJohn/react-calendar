@@ -5,24 +5,27 @@ function Day(props) {
    const { date } = props.day
 
    const isSelected = () => {
-      const { day, outerActive, startDate } = props
+      const { day, startDate, endDate } = props
       const { date } = day
       const selectedDay = isSameDay(date, startDate)
-      return selectedDay && !outerActive
+      const sameAsStart = isSameDay(startDate, endDate)
+      return selectedDay && sameAsStart
    }
 
    const isInnerBound = () => {
-      const { day, innerActive, startDate } = props
+      const { day, rangeSelection, startDate, endDate } = props
       const { date } = day
       const selectedDay = isSameDay(date, startDate)
-      return selectedDay && innerActive
+      const sameAsStart = isSameDay(startDate, endDate)
+      return selectedDay && rangeSelection && !sameAsStart
    }
 
    const isOuterBound = () => {
-      const { day, outerActive, endDate } = props
+      const { day, rangeSelection, startDate, endDate } = props
       const { date } = day
       const selectedDay = isSameDay(date, endDate)
-      return selectedDay && outerActive
+      const sameAsStart = isSameDay(startDate, endDate)
+      return selectedDay && rangeSelection && !sameAsStart
    }
 
    const isOnlyToday = () => {
@@ -49,8 +52,26 @@ function Day(props) {
 
    const isOtherMonth = () => {
       const { day } = props
-      const { activeMonth } = day
-      return !activeMonth
+      const { isCurrentMonth } = day
+      return !isCurrentMonth
+   }
+
+   const isActive = () => {
+      const { activeBound } = props
+      return (
+         (activeBound.inner && isInnerBound()) ||
+         (activeBound.outer && isOuterBound())
+      )
+   }
+
+   const isInactiveBound = (pickedDate) => {
+      const { startDate, endDate, activeBound } = props
+      const { inner, outer } = activeBound
+      const isStartDay = isSameDay(pickedDate, startDate)
+      const isEndDay = isSameDay(pickedDate, endDate)
+      if (inner && isEndDay) return true
+      if (outer && isStartDay) return true
+      return false
    }
 
    const getClasses = () => {
@@ -62,19 +83,10 @@ function Day(props) {
          'datePicker__day--today': isOnlyToday(),
          'datePicker__day--range': range(),
          'datePicker__day--outer': isOuterBound(),
-         'datePicker__day--otherMonth': isOtherMonth()
+         'datePicker__day--otherMonth': isOtherMonth(),
+         'datePicker__day--activeBound': isActive()
       }
       return setClasses(classes)
-   }
-
-   const isInactiveBound = (pickedDate) => {
-      const { startDate, endDate, activeBound } = props
-      const { inner, outer } = activeBound
-      const isStartDay = isSameDay(pickedDate, startDate)
-      const isEndDay = isSameDay(pickedDate, endDate)
-      if (inner && isEndDay) return true
-      if (outer && isStartDay) return true
-      return false
    }
 
    const handleClick = (pickedDate) => {
@@ -95,16 +107,26 @@ function Day(props) {
          let dates = []
          const switchActiveBound = isInactiveBound(pickedDate)
 
-         if (switchActiveBound) {
+         if (!switchActiveBound) {
+            if (inner) {
+               if (pickedDate > endDate) {
+                  updateActiveBound('outer')
+                  dates = [startDate, pickedDate]
+               } else {
+                  dates = [pickedDate, endDate]
+               }
+            } else if (outer) {
+               if (pickedDate < startDate) {
+                  updateActiveBound('inner')
+                  dates = [pickedDate, endDate]
+               } else {
+                  dates = [startDate, pickedDate]
+               }
+            }
+            atChange(dates)
+         } else {
             updateActiveBound('switch')
-         } else if (inner) {
-            if (pickedDate > endDate) dates = [endDate, pickedDate]
-            else dates = [pickedDate, endDate]
-         } else if (outer) {
-            if (pickedDate < startDate) dates = [pickedDate, startDate]
-            else dates = [startDate, pickedDate]
          }
-         atChange(dates)
       } else {
          atChange(pickedDate)
       }

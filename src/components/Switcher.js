@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Switcher({ toggle }) {
+function Switcher({ toggle, children }) {
    return (
       <div className="switcher">
-         <button onClick={toggle}>End date</button>
+         <button onClick={toggle}>{children}</button>
       </div>
    )
 }

@@ -6,7 +6,7 @@ import Switcher from './components/Switcher'
 
 function App() {
    const [startDate, setStartDate] = useState(new Date())
-   const [endDate, setEndDate] = useState(null)
+   const [endDate, setEndDate] = useState(new Date())
    const [range, setRange] = useState(false)
 
    const handleChange = (dates) => {
@@ -45,7 +45,9 @@ function App() {
                   atChange={(date) => setStartDate(date)}
                />
             )}
-            <Switcher toggle={() => setRange((range) => !range)} />
+            <Switcher toggle={() => setRange((range) => !range)}>
+               {'Include end date '}
+            </Switcher>
          </div>
       </div>
    )

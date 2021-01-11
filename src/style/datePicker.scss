@@ -1,7 +1,6 @@
 @import 'variables';
 
 .datePicker {
-   max-width: 500px;
    color: $text;
 
    &__monthControl {
@@ -88,9 +87,10 @@
          }
       }
 
-      &--selected {
-         background: $blue;
-         color: white;
+      &--activeBound {
+         color: #ffffff;
+         background: $blue !important;
+         font-weight: 700;
       }
 
       &--selected {
@@ -108,7 +108,6 @@
       &--inner,
       &--outer {
          background: $lightBlue;
-         color: $text;
       }
 
       &--active {
