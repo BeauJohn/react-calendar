@@ -47,6 +47,7 @@ function DateInput({ date, atChange, multiple }) {
       <div className={setClasses(classes)}>
          <input
             type="text"
+            readOnly
             ref={inputRef}
             value={newDate}
             onChange={(e) => setNewDate(e.target.value)}

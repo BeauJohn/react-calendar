@@ -1,9 +1,16 @@
 import React from 'react'
+import '../style/switcher.scss'
 
 function Switcher({ toggle, children }) {
    return (
       <div className="switcher">
-         <button onClick={toggle}>{children}</button>
+         <div className="switcher__text">{children}</div>
+         <div className="switcher__inputWrapper">
+            <label>
+               <input onClick={toggle} type="checkbox" />
+               <span className="slider round"></span>
+            </label>
+         </div>
       </div>
    )
 }

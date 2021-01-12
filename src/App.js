@@ -9,9 +9,6 @@ function App() {
    const [endDate, setEndDate] = useState()
    const [range, setRange] = useState(false)
 
-   console.log(startDate)
-   console.log(endDate)
-
    const handleChange = (dates) => {
       const [start, end] = dates
       setStartDate(start)
@@ -53,7 +50,7 @@ function App() {
                   atChange={(date) => setStartDate(date)}
                />
             )}
-            <Switcher toggle={toggleRange}>{'Include end date'}</Switcher>
+            <Switcher toggle={toggleRange}>{'End date'}</Switcher>
          </div>
       </div>
    )
