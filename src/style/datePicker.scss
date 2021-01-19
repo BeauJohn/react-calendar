@@ -67,6 +67,11 @@
       color: $text;
       cursor: pointer;
 
+      &:not(.datePicker__day--selected):not(.datePicker__day--inner):not(.datePicker__day--outer):not(.datePicker__day--today--range):not(.datePicker__day--activeBound):not(.datePicker__day--range):hover {
+         background: $hoverBlue;
+         border-radius: $borderRadius;
+      }
+
       &--today {
          color: #ffffff;
          position: relative;
@@ -95,9 +100,9 @@
 
       &--selected {
          background: $blue;
-         color: #ffffff;
+         color: #ffffff !important;
          font-weight: 700;
-         border-radius: 3px;
+         border-radius: $borderRadius;
       }
 
       &--today--range {
@@ -111,7 +116,7 @@
       }
 
       &--active {
-         border-radius: 3px;
+         border-radius: $borderRadius;
          color: #ffffff;
          font-weight: 700;
       }
@@ -122,11 +127,11 @@
       }
 
       &--inner {
-         border-radius: 3px 0 0 3px;
+         border-radius: $borderRadius 0 0 $borderRadius;
       }
 
       &--outer {
-         border-radius: 0 3px 3px 0;
+         border-radius: 0 $borderRadius $borderRadius 0;
       }
 
       &--range {
