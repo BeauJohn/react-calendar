@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { format, validDate, setClasses } from '../_utils'
-import '../../style/dateInput.scss'
+import { format, validDate, setClasses } from './_utils'
+import '../style/dateInput.scss'
 
 function DateInput({ date, atChange, multiple }) {
    const [currentDate, setCurrentDate] = useState('')

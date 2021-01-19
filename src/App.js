@@ -1,7 +1,7 @@
 import './style/App.scss'
 import React, { useState } from 'react'
 import DatePicker from './components/datePicker/DatePicker'
-import DateInput from './components/dateInput/DateInput'
+import DateInput from './components/DateInput'
 import Switcher from './components/Switcher'
 
 function App() {

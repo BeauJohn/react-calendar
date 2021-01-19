@@ -111,14 +111,14 @@ function Day(props) {
             if (inner) {
                if (pickedDate > endDate) {
                   updateActiveBound('outer')
-                  dates = [startDate, pickedDate]
+                  dates = [endDate, pickedDate]
                } else {
                   dates = [pickedDate, endDate]
                }
             } else if (outer) {
                if (pickedDate < startDate) {
                   updateActiveBound('inner')
-                  dates = [pickedDate, endDate]
+                  dates = [pickedDate, startDate]
                } else {
                   dates = [startDate, pickedDate]
                }
