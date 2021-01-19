@@ -89,49 +89,47 @@ function Day(props) {
       return setClasses(classes)
    }
 
-   const handleClick = (pickedDate) => {
+   const setRanges = (pickedDate) => {
       const {
-         activeMonth,
          activeBound,
-         rangeSelection,
          atChange,
-         setOuterMonth,
          startDate,
          endDate,
          updateActiveBound
       } = props
       const { inner, outer } = activeBound
+      const switchActiveBound = isInactiveBound(pickedDate)
+      let dates = []
+
+      if (switchActiveBound === false) {
+         if (inner) {
+            if (pickedDate > endDate) {
+               updateActiveBound('outer')
+               dates = [endDate, pickedDate]
+            } else {
+               dates = [pickedDate, endDate]
+            }
+         } else if (outer) {
+            if (pickedDate < startDate) {
+               updateActiveBound('inner')
+               dates = [pickedDate, startDate]
+            } else {
+               dates = [startDate, pickedDate]
+            }
+         }
+         atChange(dates)
+      } else {
+         updateActiveBound('switch')
+      }
+   }
+
+   const handleClick = (pickedDate) => {
+      const { activeMonth, rangeSelection, atChange, setOuterMonth } = props
       const outOfBoundsMonth = !isSameMonth(pickedDate, activeMonth)
 
-      if (rangeSelection) {
-         let dates = []
-         const switchActiveBound = isInactiveBound(pickedDate)
-
-         if (!switchActiveBound) {
-            if (inner) {
-               if (pickedDate > endDate) {
-                  updateActiveBound('outer')
-                  dates = [endDate, pickedDate]
-               } else {
-                  dates = [pickedDate, endDate]
-               }
-            } else if (outer) {
-               if (pickedDate < startDate) {
-                  updateActiveBound('inner')
-                  dates = [pickedDate, startDate]
-               } else {
-                  dates = [startDate, pickedDate]
-               }
-            }
-            atChange(dates)
-         } else {
-            updateActiveBound('switch')
-         }
-      } else {
-         atChange(pickedDate)
-      }
-
       if (outOfBoundsMonth) setOuterMonth(pickedDate)
+      if (rangeSelection) setRanges(pickedDate)
+      else atChange(pickedDate)
    }
 
    return (
