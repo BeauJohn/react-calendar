@@ -67,7 +67,7 @@
       color: $text;
       cursor: pointer;
 
-      &:not(.datePicker__day--selected):not(.datePicker__day--inner):not(.datePicker__day--outer):not(.datePicker__day--today--range):not(.datePicker__day--activeBound):not(.datePicker__day--range):hover {
+      &:not(.datePicker__day--selected):not(.datePicker__weekday):not(.datePicker__day--inner):not(.datePicker__day--outer):not(.datePicker__day--today--range):not(.datePicker__day--activeBound):not(.datePicker__day--range):hover {
          background: $hoverBlue;
          border-radius: $borderRadius;
       }
@@ -90,19 +90,6 @@
             border-radius: 50%;
             z-index: -5;
          }
-      }
-
-      &--activeBound {
-         color: #ffffff !important;
-         background: $blue !important;
-         font-weight: 700;
-      }
-
-      &--selected {
-         background: $blue;
-         color: #ffffff !important;
-         font-weight: 700;
-         border-radius: $borderRadius;
       }
 
       &--today--range {
@@ -142,4 +129,21 @@
          color: $darkGrey;
       }
    }
+}
+
+div.datePicker__weekday {
+   cursor: default;
+}
+
+div.datePicker__day--activeBound {
+   color: #ffffff;
+   background: $blue;
+   font-weight: 700;
+}
+
+div.datePicker__day--selected {
+   background: $blue;
+   color: #ffffff;
+   font-weight: 700;
+   border-radius: $borderRadius;
 }
